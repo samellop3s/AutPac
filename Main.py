@@ -27,4 +27,3 @@ prazos = [int(x) for x in entrada.split("/")]
 for r in calcular(prazos):
         print(r)
 
-input("\n Click em enter para finalizar....")
