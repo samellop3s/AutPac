@@ -1,19 +1,19 @@
 from datetime import datetime, timedelta
 
+print("\nAutPac v1")
+print ("===========================")
+print ()
 def ajustar_fim_semana(data):
-    if data.weekday() == 5:  # sabado
-        data += timedelta(days=2)
-    elif data.weekday() == 6:  # domingo
+    while data.weekday() >= 5:
         data += timedelta(days=1)
     return data
 
 
 def calcular(parcelas, base="hoje"):
-
     if base == "ontem":
-        data_base = datetime.now() - timedelta(days=1)
+        data_base = datetime.now().date() - timedelta(days=1)
     else:
-        data_base = datetime.now()
+        data_base = datetime.now().date()
 
     resultados = []
 
@@ -27,13 +27,13 @@ def calcular(parcelas, base="hoje"):
 
 def main():
     try:
-        entrada = input("Digite os prazos do parcelamento (ex: 28/35/42): ").strip().lower()
+        entrada = input("Digite os prazos (ex: 28/35/42): ").strip()
 
         if not entrada:
             print("⚠ Nenhum valor digitado.")
             return
 
-        prazos = [int(x) for x in entrada.split("/")]
+        prazos = [int(x.strip()) for x in entrada.split("/")]
 
         for r in calcular(prazos):
             print(r)
@@ -44,7 +44,6 @@ def main():
 
 while True:
     main()
-
     opcao = input("\nDeseja calcular novamente? (s/n): ").lower()
 
     if opcao != "s":
