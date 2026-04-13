@@ -1,8 +1,10 @@
 from datetime import datetime, timedelta
 
 print("\nAutPac v1")
-print ("===========================")
-print ()
+print("===========================")
+print()
+
+
 def ajustar_fim_semana(data):
     while data.weekday() >= 5:
         data += timedelta(days=1)
@@ -18,6 +20,9 @@ def calcular(parcelas, base="hoje"):
     resultados = []
 
     for dias in parcelas:
+        if dias <= 0:
+            print(f"⚠ Prazo inválido ignorado: {dias}")
+            continue
         data = data_base + timedelta(days=dias)
         data = ajustar_fim_semana(data)
         resultados.append(f"{dias} dias -> {data.strftime('%d/%m/%Y')}")
@@ -42,10 +47,12 @@ def main():
         print("⚠ Digite apenas números separados por /")
 
 
-while True:
-    main()
-    opcao = input("\nDeseja calcular novamente? (s/n): ").lower()
+if __name__ == "__main__":
 
-    if opcao != "s":
-        print("Encerrando programa...")
-        break
+    while True:
+        main()
+        opcao = input("\nDeseja calcular novamente? (s/n): ").lower()
+
+        if opcao != "s":
+            print("Encerrando programa...")
+            break
